@@ -1,11 +1,5 @@
 class DosesController < ApplicationController
-  before_action :set_cocktail, only: [:new, :create]
-  def index
-  end
-
-  def new
-    @dose = @cocktail.doses.new
-  end
+  before_action :set_cocktail, only: [:new, :create, :destroy]
 
   def create
     @dose = Dose.new(dose_params)
@@ -14,22 +8,18 @@ class DosesController < ApplicationController
       redirect_to cocktail_path(@cocktail)
     else
       render :new
-  end
-  end
-
-  def edit
+    end
   end
 
-  def show
+  def new
+    @dose = @cocktail.doses.new
   end
 
-  def update
-  end
 
   def destroy
     @dose = Dose.find(params[:id])
     @dose.destroy
-    redirect_to cocktails_path
+    redirect_to cocktail_path(@cocktail)
   end
 
   private
